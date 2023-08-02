@@ -44,6 +44,7 @@ class _HomeState extends State<Home> {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -67,12 +68,24 @@ class _LoginState extends State<Login> {
               height: 16,
             ),
             TextFormField(
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Password"),
+              obscureText: _obscureText,
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Password",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "This field is required";
                 }
+                return null;
               },
             ),
             const SizedBox(
