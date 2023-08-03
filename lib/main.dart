@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/navbar.dart';
 import 'login.dart';
 
 void main() {
@@ -11,19 +12,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Home(),
+      home: Index(),
     );
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Index extends StatefulWidget {
+  const Index({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Index> createState() => _IndexState();
 }
 
-class _HomeState extends State<Home> {
+class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +33,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: const Login(),
+      drawer: Navbar(),
     );
   }
 }
