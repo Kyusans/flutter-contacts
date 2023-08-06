@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/navbar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,6 +11,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Home");
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home"),
+        centerTitle: true,
+      ),
+      body: const Text("This is home"),
+      drawer: const Navbar(),
+    );
   }
 }

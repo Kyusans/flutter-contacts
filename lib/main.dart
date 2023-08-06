@@ -33,7 +33,6 @@ class _IndexState extends State<Index> {
         centerTitle: true,
       ),
       body: const Login(),
-      drawer: Navbar(),
     );
   }
 }
