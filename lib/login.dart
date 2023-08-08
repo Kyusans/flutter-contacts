@@ -12,6 +12,8 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
       child: Container(
@@ -64,7 +66,25 @@ class _LoginState extends State<Login> {
                     if (_formKey.currentState!.validate()) {}
                   },
                   child: const Text("Login")),
-            )
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 8,
+            ),
+            SizedBox(
+              height: screenHeight * 0.055,
+              width: screenWidth * 0.8,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
+                child: const Text("Sign up"),
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),
