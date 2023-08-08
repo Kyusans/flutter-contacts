@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -82,7 +83,10 @@ class _LoginState extends State<Login> {
                   backgroundColor: Colors.green,
                 ),
                 child: const Text("Sign up"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Signup()));
+                },
               ),
             ),
           ],
