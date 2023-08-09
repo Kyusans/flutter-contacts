@@ -24,7 +24,9 @@ class _LoginState extends State<Login> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Username"),
+                border: OutlineInputBorder(),
+                labelText: "Username",
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "This field is required";
@@ -38,17 +40,17 @@ class _LoginState extends State<Login> {
             TextFormField(
               obscureText: _obscureText,
               decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: "Password",
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  )),
+                border: const OutlineInputBorder(),
+                labelText: "Password",
+                suffixIcon: IconButton(
+                  icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                ),
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "This field is required";
@@ -84,8 +86,7 @@ class _LoginState extends State<Login> {
                 ),
                 child: const Text("Sign up"),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Signup()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
                 },
               ),
             ),
