@@ -19,20 +19,30 @@ class _LoginState extends State<Login> {
   String url = "http://localhost/contact/users.php";
   void login() async {
     Map<String, String> jsonData = {
-      "empId": txtUsername,
+      "username": txtUsername,
       "password": txtPassword
     };
     Map<String, String> requestBody = {
-      "json": jsonEncode(jsonData)
+      "json": jsonEncode(jsonData),
+      "operation": "login"
     };
     var response = await http.post(
       Uri.parse(url),
       body: requestBody,
     );
     if (response.body != "0") {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const Mainhome();
-      }));
+      print("response.body: " + response.body);
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) {
+          return const Mainhome();
+        }),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Invalid username or password"),
+        ),
+      );
     }
   }
 
