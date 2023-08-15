@@ -84,9 +84,7 @@ class _SignupState extends State<Signup> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      print("Sign up na siya");
-                    }
+                    if (_formKey.currentState!.validate()) {}
                   },
                   child: const Text("Signup")),
             ),

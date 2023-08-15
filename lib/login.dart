@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter_contact/mainhome.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/signup.dart';
 
@@ -11,6 +14,28 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  String txtUsername = "";
+  String txtPassword = "";
+  String url = "http://localhost/contact/users.php";
+  void login() async {
+    Map<String, String> jsonData = {
+      "empId": txtUsername,
+      "password": txtPassword
+    };
+    Map<String, String> requestBody = {
+      "json": jsonEncode(jsonData)
+    };
+    var response = await http.post(
+      Uri.parse(url),
+      body: requestBody,
+    );
+    if (response.body != "0") {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const Mainhome();
+      }));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -23,6 +48,11 @@ class _LoginState extends State<Login> {
         child: Column(
           children: [
             TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  txtUsername = value;
+                });
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Username",
@@ -38,6 +68,9 @@ class _LoginState extends State<Login> {
               height: 16,
             ),
             TextFormField(
+              onChanged: (value) {
+                txtPassword = value;
+              },
               obscureText: _obscureText,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
@@ -66,7 +99,9 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      login();
+                    }
                   },
                   child: const Text("Login")),
             ),
