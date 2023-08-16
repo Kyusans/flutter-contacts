@@ -30,8 +30,7 @@ class _LoginState extends State<Login> {
       Uri.parse(url),
       body: requestBody,
     );
-    if (response.body != "0") {
-      print("response.body: " + response.body);
+    if (response.body != "0" || response.body.isEmpty) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) {
           return const Mainhome();

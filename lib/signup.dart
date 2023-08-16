@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -10,6 +13,36 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
+  String txtUsername = "";
+  String txtPassword = "";
+  String txtEmail = "";
+  String url = "http://localhost/contact/users.php";
+  void signup() async {
+    Map<String, String> jsonData = {
+      "username": txtUsername,
+      "password": txtPassword,
+      "email": txtEmail,
+    };
+    Map<String, String> requestBody = {
+      "json": jsonEncode(jsonData),
+      "operation": "signup",
+    };
+
+    var response = await http.post(
+      Uri.parse(url),
+      body: requestBody,
+    );
+    print("Response body" + response.body);
+    if (response.body == "1") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Success!"),
+        ),
+      );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +57,9 @@ class _SignupState extends State<Signup> {
           margin: const EdgeInsets.all(16),
           child: Column(children: [
             TextFormField(
+              onChanged: (value) {
+                txtUsername = value;
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Username",
@@ -40,6 +76,9 @@ class _SignupState extends State<Signup> {
             ),
             TextFormField(
               obscureText: _isObscure,
+              onChanged: (value) {
+                txtPassword = value;
+              },
               decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: "Password",
@@ -64,7 +103,9 @@ class _SignupState extends State<Signup> {
               height: 16,
             ),
             TextFormField(
-              obscureText: _isObscure,
+              onChanged: (value) {
+                txtEmail = value;
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Email",
@@ -84,7 +125,9 @@ class _SignupState extends State<Signup> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      signup();
+                    }
                   },
                   child: const Text("Signup")),
             ),
