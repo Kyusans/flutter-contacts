@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_contact/mainhome.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/signup.dart';
@@ -31,11 +30,12 @@ class _LoginState extends State<Login> {
       body: requestBody,
     );
     if (response.body != "0" || response.body.isEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) {
-          return const Mainhome();
-        }),
-      );
+      Navigator.pushNamed(context, "/home");
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(builder: (context) {
+      //     return const Home();
+      //   }),
+      // );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
