@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/main.dart';
 import 'login.dart';
 
 class Navbar extends StatefulWidget {
@@ -22,8 +23,7 @@ class _NavbarState extends State<Navbar> {
         ListTile(
           title: const Text("Home"),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Login()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Index()));
           },
         )
       ]),

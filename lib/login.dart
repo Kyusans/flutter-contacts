@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_contact/api_constants.dart';
+import 'package:flutter_contact/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/signup.dart';
@@ -15,7 +17,7 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   String txtUsername = "";
   String txtPassword = "";
-  String url = "http://localhost/contact/users.php";
+  // String url = "http://localhost/contact/users.php";
   void login() async {
     Map<String, String> jsonData = {
       "username": txtUsername,
@@ -26,16 +28,15 @@ class _LoginState extends State<Login> {
       "operation": "login"
     };
     var response = await http.post(
-      Uri.parse(url),
+      Uri.parse("${ApiConstant.baseUrl}users.php"),
       body: requestBody,
     );
     if (response.body != "0" || response.body.isEmpty) {
-      Navigator.pushNamed(context, "/home");
-      // Navigator.of(context).push(
-      //   MaterialPageRoute(builder: (context) {
-      //     return const Home();
-      //   }),
-      // );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const Home(),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -55,6 +56,7 @@ class _LoginState extends State<Login> {
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.all(16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               onChanged: (value) {
