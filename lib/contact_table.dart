@@ -11,30 +11,44 @@ class ContactTable extends StatefulWidget {
 }
 
 class _ContactTableState extends State<ContactTable> {
-  late List<Map<String, dynamic>> contact;
-  void getContact() async {
-    Map<String, String> requestBody = {
+  Future<List<Map<String, dynamic>>> getContact() async {
+    final response = await http.post(Uri.parse("${ApiConstant.baseUrl}users.php"), body: {
       "operation": "getContact"
-    };
-
-    var response = await http.post(
-      Uri.parse("${ApiConstant.baseUrl}users.php"),
-      body: requestBody,
-    );
-
-    contact = response.body != "0" ? List<Map<String, dynamic>>.from(json.decode(response.body)) : [];
+    });
+    return response.body != "0" ? List<Map<String, dynamic>>.from(json.decode(response.body)) : [];
   }
 
   @override
   Widget build(BuildContext context) {
-    return DataTable(
-      columns: const [
-        DataColumn(label: Text("Name")),
-        DataColumn(label: Text("Mobile number")),
-        DataColumn(label: Text("Address")),
-        DataColumn(label: Text("Email")),
-      ],
-      rows: [],
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: getContact(),
+      builder: (context, snapshot) {
+        final contact = snapshot.data ?? [];
+        return DataTable(
+          columns: const [
+            DataColumn(label: Text("Name")),
+            DataColumn(label: Text("Mobile number")),
+            DataColumn(label: Text("Address")),
+            DataColumn(label: Text("Email")),
+          ],
+          rows: contact.isEmpty
+              ? [
+                  const DataRow(cells: [
+                    DataCell(Text("No data found"))
+                  ])
+                ]
+              : contact.map((contacts) {
+                  return DataRow(
+                    cells: [
+                      DataCell(Text(contacts["con_fullName"])),
+                      DataCell(Text(contacts["con_mobileNumber"])),
+                      DataCell(Text(contacts["con_address"])),
+                      DataCell(Text(contacts["con_email"])),
+                    ],
+                  );
+                }).toList(),
+        );
+      },
     );
   }
 }

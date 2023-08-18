@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/contact_table.dart';
 import 'package:flutter_contact/navbar.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomeState extends State<Home> {
         title: const Text("Home"),
         centerTitle: true,
       ),
-      body: const Text("This is home"),
+      body: const ContactTable(),
       drawer: const Navbar(),
     );
   }
