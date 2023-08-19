@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_contact/api_constants.dart';
 import 'package:flutter_contact/home.dart';
+import 'package:flutter_contact/session_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/signup.dart';
@@ -32,6 +33,9 @@ class _LoginState extends State<Login> {
       body: requestBody,
     );
     if (response.body != "0" || response.body.isEmpty) {
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+      dynamic userId = responseBody["user_id"];
+      SessionStorage.userId = userId.toString();
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const Home(),

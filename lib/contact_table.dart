@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/api_constants.dart';
+import 'package:flutter_contact/session_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -12,12 +13,14 @@ class ContactTable extends StatefulWidget {
 
 class _ContactTableState extends State<ContactTable> {
   Future<List<Map<String, dynamic>>> getContact() async {
+    Map<String, String> jsonData = {
+      "userId": SessionStorage.userId
+    };
     Map<String, String> requestBody = {
+      "json": jsonEncode(jsonData),
       "operation": "getContact"
     };
-    final response = await http.post(Uri.parse("${ApiConstant.baseUrl}users.php"), body: {
-      requestBody
-    });
+    final response = await http.post(Uri.parse("${ApiConstant.baseUrl}users.php"), body: requestBody);
     return response.body != "0" ? List<Map<String, dynamic>>.from(json.decode(response.body)) : [];
   }
 
