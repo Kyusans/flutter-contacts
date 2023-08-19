@@ -12,8 +12,11 @@ class ContactTable extends StatefulWidget {
 
 class _ContactTableState extends State<ContactTable> {
   Future<List<Map<String, dynamic>>> getContact() async {
-    final response = await http.post(Uri.parse("${ApiConstant.baseUrl}users.php"), body: {
+    Map<String, String> requestBody = {
       "operation": "getContact"
+    };
+    final response = await http.post(Uri.parse("${ApiConstant.baseUrl}users.php"), body: {
+      requestBody
     });
     return response.body != "0" ? List<Map<String, dynamic>>.from(json.decode(response.body)) : [];
   }
@@ -24,29 +27,38 @@ class _ContactTableState extends State<ContactTable> {
       future: getContact(),
       builder: (context, snapshot) {
         final contact = snapshot.data ?? [];
-        return DataTable(
-          columns: const [
-            DataColumn(label: Text("Name")),
-            DataColumn(label: Text("Mobile number")),
-            DataColumn(label: Text("Address")),
-            DataColumn(label: Text("Email")),
-          ],
-          rows: contact.isEmpty
-              ? [
-                  const DataRow(cells: [
-                    DataCell(Text("No data found"))
-                  ])
-                ]
-              : contact.map((contacts) {
-                  return DataRow(
-                    cells: [
-                      DataCell(Text(contacts["con_fullName"])),
-                      DataCell(Text(contacts["con_mobileNumber"])),
-                      DataCell(Text(contacts["con_address"])),
-                      DataCell(Text(contacts["con_email"])),
-                    ],
-                  );
-                }).toList(),
+        return Align(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              columns: const [
+                DataColumn(label: Text("Name")),
+                DataColumn(label: Text("Mobile number")),
+                DataColumn(label: Text("Address")),
+                DataColumn(label: Text("Email")),
+              ],
+              rows: contact.isEmpty
+                  ? [
+                      const DataRow(cells: [
+                        DataCell(Text("No data found")),
+                        DataCell(Text("")),
+                        DataCell(Text("")),
+                        DataCell(Text("")),
+                      ])
+                    ]
+                  : contact.map((contacts) {
+                      return DataRow(
+                        cells: [
+                          DataCell(Text(contacts["con_fullName"])),
+                          DataCell(Text(contacts["con_mobileNumber"])),
+                          DataCell(Text(contacts["con_address"])),
+                          DataCell(Text(contacts["con_email"])),
+                        ],
+                      );
+                    }).toList(),
+            ),
+          ),
         );
       },
     );
