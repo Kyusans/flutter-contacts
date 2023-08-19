@@ -18,7 +18,6 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   String txtUsername = "";
   String txtPassword = "";
-  // String url = "http://localhost/contact/users.php";
   void login() async {
     Map<String, String> jsonData = {
       "username": txtUsername,

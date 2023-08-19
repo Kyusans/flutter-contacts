@@ -12,6 +12,10 @@ class ContactTable extends StatefulWidget {
 }
 
 class _ContactTableState extends State<ContactTable> {
+  void updateContactList() {
+    setState(() {});
+  }
+
   Future<List<Map<String, dynamic>>> getContact() async {
     Map<String, String> jsonData = {
       "userId": SessionStorage.userId
@@ -34,32 +38,53 @@ class _ContactTableState extends State<ContactTable> {
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text("Name")),
-                DataColumn(label: Text("Mobile number")),
-                DataColumn(label: Text("Address")),
-                DataColumn(label: Text("Email")),
-              ],
-              rows: contact.isEmpty
-                  ? [
-                      const DataRow(cells: [
-                        DataCell(Text("No data found")),
-                        DataCell(Text("")),
-                        DataCell(Text("")),
-                        DataCell(Text("")),
-                      ])
-                    ]
-                  : contact.map((contacts) {
-                      return DataRow(
-                        cells: [
-                          DataCell(Text(contacts["con_fullName"])),
-                          DataCell(Text(contacts["con_mobileNumber"])),
-                          DataCell(Text(contacts["con_address"])),
-                          DataCell(Text(contacts["con_email"])),
-                        ],
-                      );
-                    }).toList(),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+              ),
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text("Name")),
+                  DataColumn(label: Text("Mobile number")),
+                  DataColumn(label: Text("Address")),
+                  DataColumn(label: Text("Email")),
+                  DataColumn(label: Text("Actions")),
+                ],
+                rows: contact.isEmpty
+                    ? [
+                        const DataRow(cells: [
+                          DataCell(Text("No data found")),
+                          DataCell(Text("")),
+                          DataCell(Text("")),
+                          DataCell(Text("")),
+                          DataCell(Text(""))
+                        ])
+                      ]
+                    : contact.map((contacts) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(contacts["con_fullName"])),
+                            DataCell(Text(contacts["con_mobileNumber"])),
+                            DataCell(Text(contacts["con_address"])),
+                            DataCell(Text(contacts["con_email"])),
+                            DataCell(Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text("Update"),
+                                ),
+                                const SizedBox(width: 8),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                  child: const Text("Delete"),
+                                ),
+                              ],
+                            ))
+                          ],
+                        );
+                      }).toList(),
+              ),
             ),
           ),
         );
