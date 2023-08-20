@@ -12,6 +12,33 @@ class UpdateContact extends StatefulWidget {
 }
 
 class _UpdateContactState extends State<UpdateContact> {
+  @override
+  void initState() {
+    getSelectedContact();
+    super.initState();
+  }
+
+  Future<void> getSelectedContact() async {
+    Map<String, String> jsonData = {
+      "conId": widget.conId,
+    };
+    Map<String, String> requestBody = {
+      "operation": "selectContact",
+      "json": jsonEncode(jsonData),
+    };
+    var response = await http.post(
+      Uri.parse("${ApiConstant.baseUrl}users.php"),
+      body: requestBody,
+    );
+    Map<String, dynamic> resData = json.decode(response.body);
+    if (response.body != "0") {
+      _fullNameController.text = resData["con_fullName"];
+      _mobileNumberController.text = resData["con_mobileNumber"];
+      _addressController.text = resData["con_address"];
+      _emailController.text = resData["con_email"];
+    }
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
