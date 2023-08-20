@@ -17,7 +17,7 @@ class _ContactTableState extends State<ContactTable> {
     setState(() {});
   }
 
-  Future<void> _openUpdateContactScreen(String id) async {
+  Future<void> _openUpdateContactScreen(int id) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UpdateContact(conId: id)),
@@ -104,7 +104,7 @@ class _ContactTableState extends State<ContactTable> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    String conId = contacts["con_id"].toString();
+                                    int conId = contacts["con_id"];
                                     _openUpdateContactScreen(conId);
                                   },
                                   child: const Text("Update"),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class UpdateContact extends StatefulWidget {
   const UpdateContact({Key? key, required this.conId}) : super(key: key);
-  final String conId;
+  final int conId;
 
   @override
   _UpdateContactState createState() => _UpdateContactState();
@@ -18,8 +18,34 @@ class _UpdateContactState extends State<UpdateContact> {
     super.initState();
   }
 
+  void _updateContact() async {
+    Map<String, dynamic> jsonData = {
+      "fullName": _fullNameController.text,
+      "mobileNumber": _mobileNumberController.text,
+      "address": _addressController.text,
+      "email": _emailController.text,
+      "conId": widget.conId
+    };
+    Map<String, String> requestBody = {
+      "operation": "updateContact",
+      "json": jsonEncode(jsonData),
+    };
+    var response = await http.post(
+      Uri.parse("${ApiConstant.baseUrl}users.php"),
+      body: requestBody,
+    );
+    if (response.body == "1") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Success! Contact Updated"),
+        ),
+      );
+      Navigator.pop(context, true);
+    }
+  }
+
   Future<void> getSelectedContact() async {
-    Map<String, String> jsonData = {
+    Map<String, dynamic> jsonData = {
       "conId": widget.conId,
     };
     Map<String, String> requestBody = {
@@ -125,8 +151,10 @@ class _UpdateContactState extends State<UpdateContact> {
                 width: double.infinity,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Submit"),
+                  onPressed: () {
+                    _updateContact();
+                  },
+                  child: const Text("Update"),
                 ),
               )
             ]),
