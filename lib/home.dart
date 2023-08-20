@@ -26,6 +26,19 @@ class _HomeState extends State<Home> {
           child: ElevatedButton(onPressed: () {}, child: const Text("Add contact")),
         ),
         const SizedBox(
+          height: 8,
+        ),
+        const Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Your contacts",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        const SizedBox(
           height: 16,
         ),
         const ContactTable(),
