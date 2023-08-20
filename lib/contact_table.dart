@@ -16,6 +16,28 @@ class _ContactTableState extends State<ContactTable> {
     setState(() {});
   }
 
+  void deleteContact(dynamic conId) async {
+    String responseMessage = "";
+    Map<String, String> jsonData = {
+      "conId": conId.toString()
+    };
+    Map<String, String> requestBody = {
+      "operation": "deleteContact",
+      "json": jsonEncode(jsonData)
+    };
+    var response = await http.post(
+      Uri.parse("${ApiConstant.baseUrl}users.php"),
+      body: requestBody,
+    );
+    responseMessage = response.body == "1" ? "Success! Contact deleted" : "Failed! Contact not deleted";
+    updateContactList();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(responseMessage),
+      ),
+    );
+  }
+
   Future<List<Map<String, dynamic>>> getContact() async {
     Map<String, String> jsonData = {
       "userId": SessionStorage.userId
@@ -75,7 +97,9 @@ class _ContactTableState extends State<ContactTable> {
                                 ),
                                 const SizedBox(width: 8),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    deleteContact(contacts["con_id"]);
+                                  },
                                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                                   child: const Text("Delete"),
                                 ),

@@ -17,7 +17,19 @@ class _HomeState extends State<Home> {
         title: const Text("Home"),
         centerTitle: true,
       ),
-      body: const ContactTable(),
+      body: Column(children: [
+        const SizedBox(
+          height: 8,
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: ElevatedButton(onPressed: () {}, child: const Text("Add contact")),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        const ContactTable(),
+      ]),
       drawer: const Navbar(),
     );
   }
