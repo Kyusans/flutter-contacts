@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/add_contact.dart';
 import 'package:flutter_contact/contact_table.dart';
 import 'package:flutter_contact/navbar.dart';
 
@@ -10,6 +11,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Future<void> _openAddContactScreen() async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => const AddContact()),
+    );
+    if (result == true) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +34,10 @@ class _HomeState extends State<Home> {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: ElevatedButton(onPressed: () {}, child: const Text("Add contact")),
+          child: ElevatedButton(
+            onPressed: _openAddContactScreen,
+            child: const Text("Add contact"),
+          ),
         ),
         const SizedBox(
           height: 8,
@@ -41,7 +55,8 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: 16,
         ),
-        const ContactTable(),
+        // Trigger a rebuild of the ContactTable if needed
+        ContactTable(),
       ]),
       drawer: const Navbar(),
     );
