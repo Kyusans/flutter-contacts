@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_contact/add_contact.dart';
+import 'package:flutter_contact/update_contact.dart';
 import 'login.dart';
 
 void main() {
@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Index(),
+      home: UpdateContact(
+        conId: "2",
+      ),
+      //Index()
     );
   }
 }

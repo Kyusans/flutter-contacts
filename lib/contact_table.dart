@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/api_constants.dart';
 import 'package:flutter_contact/session_storage.dart';
+import 'package:flutter_contact/update_contact.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -14,6 +15,16 @@ class ContactTable extends StatefulWidget {
 class _ContactTableState extends State<ContactTable> {
   void updateContactList() {
     setState(() {});
+  }
+
+  Future<void> _openUpdateContactScreen(String id) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UpdateContact(conId: id)),
+    );
+    if (result == true) {
+      setState(() {});
+    }
   }
 
   void deleteContact(dynamic conId) async {
@@ -79,7 +90,7 @@ class _ContactTableState extends State<ContactTable> {
                           DataCell(Text("")),
                           DataCell(Text("")),
                           DataCell(Text("")),
-                          DataCell(Text(""))
+                          DataCell(Text("")),
                         ])
                       ]
                     : contact.map((contacts) {
@@ -92,7 +103,10 @@ class _ContactTableState extends State<ContactTable> {
                             DataCell(Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    String conId = contacts["con_id"].toString();
+                                    _openUpdateContactScreen(conId);
+                                  },
                                   child: const Text("Update"),
                                 ),
                                 const SizedBox(width: 8),
