@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/about.dart';
+import 'package:flutter_contact/home.dart';
 import 'package:flutter_contact/main.dart';
 
 class Navbar extends StatefulWidget {
@@ -14,11 +15,15 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(children: [
-        const DrawerHeader(
+        const UserAccountsDrawerHeader(
           decoration: BoxDecoration(
             color: Colors.black,
           ),
-          child: Text("Sidebar"),
+          accountName: Text("Mel Mac"),
+          accountEmail: Text("joe@gmail.com"),
+          currentAccountPicture: CircleAvatar(
+            backgroundImage: AssetImage("assets/image/myImage.jpg"),
+          ),
         ),
         ListTile(
           title: const Text("Home"),
@@ -26,7 +31,7 @@ class _NavbarState extends State<Navbar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const Index(),
+                builder: (context) => const Home(),
               ),
             );
           },

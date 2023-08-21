@@ -42,8 +42,9 @@ class _AboutState extends State<About> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text('• Add, edit, and delete contacts'),
-            Text('• Search for contacts by name or phone number'),
+            Text('• Add contacts'),
+            Text('• Edit contacts'),
+            Text('• Delete contacts'),
             SizedBox(height: 16),
             Text(
               "Contact u̶s̶ me",
