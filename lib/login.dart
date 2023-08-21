@@ -34,7 +34,11 @@ class _LoginState extends State<Login> {
     if (response.body != "0" || response.body.isEmpty) {
       Map<String, dynamic> responseBody = jsonDecode(response.body);
       dynamic userId = responseBody["user_id"];
+      dynamic userFullName = responseBody["user_username"];
+      dynamic userEmail = responseBody["user_email"];
       SessionStorage.userId = userId.toString();
+      SessionStorage.userFullName = userFullName.toString();
+      SessionStorage.userEmail = userEmail.toString();
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const Home(),

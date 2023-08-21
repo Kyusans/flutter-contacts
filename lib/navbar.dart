@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contact/about.dart';
 import 'package:flutter_contact/home.dart';
 import 'package:flutter_contact/main.dart';
+import 'package:flutter_contact/session_storage.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -15,13 +16,13 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(children: [
-        const UserAccountsDrawerHeader(
-          decoration: BoxDecoration(
+        UserAccountsDrawerHeader(
+          decoration: const BoxDecoration(
             color: Colors.black,
           ),
-          accountName: Text("Mel Mac"),
-          accountEmail: Text("joe@gmail.com"),
-          currentAccountPicture: CircleAvatar(
+          accountName: Text(SessionStorage.userFullName),
+          accountEmail: Text(SessionStorage.userEmail),
+          currentAccountPicture: const CircleAvatar(
             backgroundImage: AssetImage("assets/image/myImage.jpg"),
           ),
         ),
