@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact/about.dart';
 import 'package:flutter_contact/main.dart';
 
 class Navbar extends StatefulWidget {
@@ -22,9 +23,25 @@ class _NavbarState extends State<Navbar> {
         ListTile(
           title: const Text("Home"),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const Index()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Index(),
+              ),
+            );
           },
-        )
+        ),
+        ListTile(
+          title: const Text("About"),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const About(),
+              ),
+            );
+          },
+        ),
       ]),
     );
   }
