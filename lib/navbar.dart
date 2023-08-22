@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/about.dart';
 import 'package:flutter_contact/home.dart';
-import 'package:flutter_contact/main.dart';
 import 'package:flutter_contact/session_storage.dart';
 
 class Navbar extends StatefulWidget {
@@ -20,10 +19,10 @@ class _NavbarState extends State<Navbar> {
           decoration: const BoxDecoration(
             color: Colors.black,
           ),
-          accountName: Text(SessionStorage.userFullName),
+          accountName: Text(SessionStorage.username),
           accountEmail: Text(SessionStorage.userEmail),
-          currentAccountPicture: const CircleAvatar(
-            backgroundImage: AssetImage("assets/image/myImage.jpg"),
+          currentAccountPicture: CircleAvatar(
+            backgroundImage: AssetImage("assets/image/${SessionStorage.userImage}"),
           ),
         ),
         ListTile(

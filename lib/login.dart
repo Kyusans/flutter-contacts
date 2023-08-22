@@ -14,6 +14,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final SessionStorage sessionStorage = SessionStorage();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   String txtUsername = "";
@@ -33,12 +34,11 @@ class _LoginState extends State<Login> {
     );
     if (response.body != "0" || response.body.isEmpty) {
       Map<String, dynamic> responseBody = jsonDecode(response.body);
-      dynamic userId = responseBody["user_id"];
-      dynamic userFullName = responseBody["user_username"];
-      dynamic userEmail = responseBody["user_email"];
-      SessionStorage.userId = userId.toString();
-      SessionStorage.userFullName = userFullName.toString();
-      SessionStorage.userEmail = userEmail.toString();
+      dynamic userId = responseBody["user_id"].toString();
+      dynamic username = responseBody["user_username"].toString();
+      dynamic userEmail = responseBody["user_email"].toString();
+      dynamic userImage = responseBody["user_image"].toString();
+      sessionStorage.setUserInformation(userId, username, userEmail, userImage);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const Home(),

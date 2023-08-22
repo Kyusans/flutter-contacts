@@ -47,14 +47,14 @@ class _AboutState extends State<About> {
             Text('• Delete contacts'),
             SizedBox(height: 16),
             Text(
-              "Contact u̶s̶ me",
+              "Contact me",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text('If you have any questions, feedback, or support requests,'),
-            Text('please email u̶s̶ me at xmelmacario@gmail.com'),
+            Text('please email me at xmelmacario@gmail.com'),
           ],
         ),
       ),
