@@ -30,6 +30,7 @@ class _IndexState extends State<Index> {
       appBar: AppBar(
         title: const Text("Login"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: const Login(),
     );
