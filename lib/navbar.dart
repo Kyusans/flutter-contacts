@@ -3,6 +3,7 @@ import 'package:flutter_contact/about.dart';
 import 'package:flutter_contact/home.dart';
 import 'package:flutter_contact/main.dart';
 import 'package:flutter_contact/session_storage.dart';
+import 'package:flutter_contact/user_profile.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -30,7 +31,14 @@ class _NavbarState extends State<Navbar> {
           ),
           ListTile(
             title: const Text("My Profile"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserProfile(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: const Text("Home"),
