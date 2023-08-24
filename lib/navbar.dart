@@ -12,6 +12,7 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
+  SessionStorage sessionStorage = SessionStorage();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -26,6 +27,10 @@ class _NavbarState extends State<Navbar> {
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage("assets/image/${SessionStorage.userImage}"),
             ),
+          ),
+          ListTile(
+            title: const Text("My Profile"),
+            onTap: () {},
           ),
           ListTile(
             title: const Text("Home"),
@@ -57,6 +62,7 @@ class _NavbarState extends State<Navbar> {
           ListTile(
             title: const Text("Logout"),
             onTap: () {
+              sessionStorage.setUserInformation("", "", "", "");
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
