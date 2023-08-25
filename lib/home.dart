@@ -55,7 +55,6 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: 16,
         ),
-        // Trigger a rebuild of the ContactTable if needed
         ContactTable(),
       ]),
       drawer: const Navbar(),
